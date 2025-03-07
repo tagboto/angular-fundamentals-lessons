@@ -1,5 +1,7 @@
-Jan 2024
+# Angular Fundamentals Lessons
 
+Jan 2024
+## What is Angular 
 Angular web frame work used to build scalable web apps with confidence
 
 its an enterprise solution and enterprise is great at scale
@@ -25,6 +27,7 @@ Angular templates which are part of the angular compomnent determine what is vis
 
 The local dev server for angular is v (pretty fast and modern)
 
+## Internal Project Structure 
 angular.json is where your project configuration lives 
 - builder (esbuild or others)
 - translations
@@ -79,7 +82,7 @@ of flies has even been reduced to reduce that learning curve.
 
 So when you ready for more files you can add them....
 
-=----- CREATING A COMPONENT 
+## Creating a component
 
 You build Angular apps with TypeScript, HTML and CSS
 TypeScript stuff is really just JavaScript with types involved and being able to describe the objects and the data that we are working with.
@@ -199,3 +202,100 @@ class AppComponent {}
 
 if you don't have any logic it can be an empty class but you can't do 
 functions .... why? We don't support function components yet.
+
+
+## Dynamic Values in Components
+We now have static data but we can do better?
+
+for example an app saying 
+```bash
+Hello User
+```
+it feels pretty sucky and not personalized right? So how do we combat this?
+
+
+In our component class we can define class properties
+
+e.g
+@Component({....})
+export class WelcomeComponent{
+    userName = 'codingChamp';
+}
+
+but why don't we see any types here?
+nice feature of TypeScript
+
+Type script can infer 'coding champ' is a string. Type inference so i don't have to explicity declare that. It can't infer all types but for primitives it got this.
+
+And if your type signatures are set up properly from functions that returns things it'll be able to do type inference.
+
+But how do we link our user name to our template 
+
+{{}} - string interpolation 
+
+inside double curly brackets we can put an expression 
+
+so now 02-displaying-dynamic data
+
+## Component Composition
+
+A single component is called a block
+
+Leveraging the power of multiple components or blocks is where the power resides
+
+The first step to combining these blocks together is called component composition.
+
+Lets say we have a dashboard and we want to use someone else's user info component this is how we stitch them together
+
+import {UserInfoComponent} from './user-info.component';
+@Component({
+    selector: 'app-dashboard';
+    template: `
+        <section>
+            <p>Welcome back</p>
+            <app-user-info />
+        </section>
+    `,
+    imports: [UserInfoComponent]
+})
+export class DashboardComponent {}
+
+the first thing we do is bring in the imports using the imports property in the component decorator 
+
+we imported at the top? which we would normally do in modules but like another way to do it is manually with this imports array (imports: [UserInfoComponent])
+
+So we first file level import so its available to the file and then we tell the component that its a dependency.
+
+Then you can reference it in your template using the selector for the page in this case (<app-user-info />)
+
+So essentially when you want to reference a different component to your template you need to:
+
+1. Import it into the file (import {UserInfoComponent} from './user-info.component';)
+
+2. Add it as a dependency to the component through the imports array (imports: [UserInfoComponent])
+
+3. Use a selector for that component to reference it (<app-user-info />)
+
+
+Ok doing the component composition exercise and trying to breakdown this command
+
+ng generate component userinfo --project 03-component-composition
+
+- ng is from angular like ang for the angular CLI
+- generate is a command (a self command)
+    - its not the only command ng has e.g there is ng serve that starts a server
+    - it can generate components, services, interfaces files etc? Can it generate tests?? We must see....
+    - documentation has the full scope of what the CLI can do
+
+- now name of the component we want to generate in this case is user info
+
+- we have flag --project? why? because its a multi project workspace so I have to explicitly say if I do generate I want to put it in a project in this workspace. 
+
+- and then I say the project I want it under....
+
+he configured the angular project to be scaffolded in a way not to get a bunch of extra stuff. If I do this on my own.
+- get tests by default
+- separate CSS by default
+- separate HTML by default
+- goes into own file by default
+
