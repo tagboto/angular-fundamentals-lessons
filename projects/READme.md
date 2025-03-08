@@ -301,6 +301,34 @@ he configured the angular project to be scaffolded in a way not to get a bunch o
 
 
 ## Template Conditionals
+How do we make a decision in our component? This means conditional logic. How do we conditionally display something. Well we apparently have something like control flow using @if syntax (no more *ngIf)
+
+<section>
+    //user.isLoggedIn
+    <p>Please Login</p>
+    //!user.isLoggedIn
+    <p>Welcome Back</p>
+</section>
+
+intended behavior we can see from this code snippet is that we'd like to see one or the other. If user is logged in we see Welcome Back else we see please login 
+
+So using control flow here is what we do in angular
+<section>
+    @if(user.isLoggedIn){
+    <p>Please Login</p>
+    }@else{
+    <p>Welcome Back</p>
+    }
+</section>
+
+very declarative style. and they also support @else if. They used to use directives which is what ngIf and things were.... and it gave us the capability to tag an element and say ngif this thing then that other thing.
+
+Built in so external dependencies!! wooohoooo
+
+Go to 04-control-flow-if
+
+
+
 
 ## Template Loops
 
