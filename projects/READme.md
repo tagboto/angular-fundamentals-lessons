@@ -299,3 +299,33 @@ he configured the angular project to be scaffolded in a way not to get a bunch o
 - separate HTML by default
 - goes into own file by default
 
+
+## Template Conditionals
+
+## Template Loops
+
+## Properties, Events & Outputs
+
+## Inputs and Outputs
+
+## Interactivity with Outputs
+
+## Binding Outputs
+
+## Navigation
+
+## Dynamic Routes and Router Link
+
+## Dynamic Routing Exercise
+
+## Forms Overview
+
+## Template Driven Forms
+
+## Reactive Forms
+
+## Dependency Injection (DI)
+
+## Signals
+
+## Deferrable Views
