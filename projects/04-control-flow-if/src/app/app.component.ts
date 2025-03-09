@@ -15,6 +15,8 @@ import { AccountInfo } from './account-info';
         <p>Valid Thru: {{ account.validThru }}</p>
         <p>CVV: {{ account.CVV }}</p>
         <p>
+
+        <!-- enumerated and we know what they'll be then a switch works better than if or else -->
           @switch (account.membershipStatus) {
             @case ('gold') {<span class="badge gold">Gold</span>}
             @case ('platinum') {<span class="badge platinum">Platinum</span>}
