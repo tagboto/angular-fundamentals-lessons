@@ -331,6 +331,42 @@ Go to 04-control-flow-if
 
 
 ## Template Loops
+<article>
+    <p>{{cart[0].price}}</p>
+    <p>{{cart[1].price}}</p>
+    <p>{{cart[2].price}}</p>
+</article>
+
+whats the issue with this piece of code. What feedback would you give me ? Use a loop ! How do I do this with a loop?
+
+Again control flow with @!!! Instead of directives like ngFor. Coolio.
+
+So heres the syntax
+
+<article>
+    @for(item of cart; track item.id){
+        <p>{{item.price}}</p>
+    }
+</article>
+
+1. @for thats part of control flow
+2. item of cart. Individual item of a collection
+3. track item.id? this helps us to be hyper efficient with rendering (REACTish)
+
+What if the list is empty? Well there is an empty tag.
+<article>
+    @for(item of cart; track item.id){
+        <p>{{item.price}}</p>
+    } @empty{
+        <p> Your cart is empty</p>
+    }
+</article>
+
+Yayyyy so if its empty it shows something else instead 
+
+
+
+
 
 ## Properties, Events & Outputs
 
