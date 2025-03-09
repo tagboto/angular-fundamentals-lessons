@@ -15,7 +15,13 @@ import { AccountInfo } from './account-info';
         <p>Valid Thru: {{ account.validThru }}</p>
         <p>CVV: {{ account.CVV }}</p>
         <p>
-           @if(account.membershipStatus === 'gold'){
+          @switch (account.membershipStatus) {
+            @case ('gold') {<span class="badge gold">Gold</span>}
+            @case ('platinum') {<span class="badge platinum">Platinum</span>}
+            @case ('silver'){<span class="badge silver">Silver</span>}
+
+          }
+           <!-- @if(account.membershipStatus === 'gold'){
             <span class="badge gold">Gold</span>
            }
            @else if (account.membershipStatus === 'platinum') {
@@ -23,7 +29,7 @@ import { AccountInfo } from './account-info';
            }
            @else {
             <span class="badge silver">Silver</span>
-           }
+           } -->
         </p>
       </section>
     </article>
