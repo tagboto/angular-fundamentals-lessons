@@ -366,9 +366,142 @@ Yayyyy so if its empty it shows something else instead
 
 
 
-
-
 ## Properties, Events & Outputs
+Now event binding and property binding very important parts of angular components. Why?
+
+Maybe you want to have an attribute or property on an element and you want to have a dynamic value..
+
+Property binding in Angular enables you to set values for properties of elements in your templates
+
+So lets say you want to dynamically set disabled or enabled based on something else in your component.
+
+Or you want to set the number of rows for a text area based on a number. Sometin like that 
+
+Lets look at the disabled and enabled example
+
+@Component(){
+    template:`
+        <button type = "button" [disabled]= "isDisabled">
+            Submit
+        </button>
+    `
+}
+export class AppComponent{
+    isDisabled = false
+}
+
+First thing you do is you find the property that you want to have a dynamic value and you add square brackets around there. So disabled is a property in html but we want it to be dynamic so instead of normal disabled= i do [disabled]=
+
+That means whatever is on the right hand side of the equal side is going to link go the isDisabled variable I set up in my AppComponent ! Yayyyy those values are now bound together.
+
+Essentially I now have the power to programatically adjust values in my template now on elements.
+
+Oh there is a sibling tool you can use with property binding? And that is...... EVENT BINDING
+
+Event handling in Angular enables you to respond to events in your templates 
+
+Some events:
+mouseover, click, or custom events.
+
+Lets look at an example with Events
+
+@Component(){
+    template:`
+        <button type = "button" (click)= "handleClick()">
+            Save Progress 
+        </button>
+    `
+}
+export class AppComponent{
+    handleClick(){...}
+}
+
+Take the name of the event and cover it with parantheses to let angular know you are binding to it.
+And then on the right hand side we have the function but with parentheses and it links to some value in our class!!
+
+Customizing components with @Input
+This answers the question what happens if you have data in another part of your project/application that you want to share with a component.
+
+You do that with inputs. You can customize data with an input and you can share data with a component with a input 
+
+
+Send info into a component (like props)
+Inputs in angular are like props.
+
+
+Lets look at an example
+@Component({
+    selector: 'app-cmp',
+    template: `<app-user-card [userData]= "user"/>`,
+    imports: [UserCardComponent],
+})
+
+export class AppComponent{
+    user: User = {name: 'Ashley', bio: 'Cool developer',};
+}
+
+We have an object which is of type user and it has some info.
+App user has an input called user data and it accepts a value of type user.
+
+But we need the square brackets. Why? They make the right hand side be an expression and not a string
+
+lets look inside app user card
+@Component({
+    selector: 'app-user-card',
+    template: `
+        <section>
+            <p>{{userData.name}}</p><p>{{userData.bio}}</p>
+        </section>
+    `,
+})
+
+export class AppComponent{
+    @Input() userData : User = {...} //default user data
+}
+
+Here we can see we have a decorator called input that allows the input to be set from outside the component.
+
+If inputs are to get inputs into the component what if you need to tell another part of your application that something happened in your component when they go the other way?
+
+
+@Output - they send information from a child component to a parent via custom events 
+
+We send data out using an event! Let see an example
+
+@Component({
+    template: `
+        <button class= "btn" (click)="addItem()">
+           Add Item
+        </button>
+    `,
+})
+
+export class ProductListComponent{
+    @Output() addItemEvent = new EventEmitter<string>();
+    addItem() {this.addItemEvent.emit(':D');}
+}
+
+
+Now lets see where we are using the output event we emitted 
+
+@Component({
+    template: `
+        <app-child (addItemEvent)="addItem($event)" />
+    `,
+    imports: [ChildComponent]
+})
+
+export class AppComponent{
+    items: string[] = [];
+    addItem(item: string){this.items.push(item);}
+}
+
+1. we are binding to that event name because its an output. (addItemEvent)
+
+2. Then handle the event its custom: addItem($event)
+
+
+
 
 ## Inputs and Outputs
 
