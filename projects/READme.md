@@ -500,7 +500,7 @@ export class AppComponent{
 
 2. Then handle the event its custom: addItem($event)
 
-
+ 
 
 
 ## Inputs and Outputs
