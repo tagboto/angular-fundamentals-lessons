@@ -505,6 +505,10 @@ export class AppComponent{
 
 ## Inputs and Outputs
 
+Inputs let us send information into a component and outputs are ways to send events out of the components 
+
+but both are about communication. So lets go to 06-inputs-and-outputs
+
 ## Interactivity with Outputs
 
 ## Binding Outputs
