@@ -575,11 +575,81 @@ what this is saying for an application level provide routing and use these route
 07-routing-basics
 
 
-
-
 ## Dynamic Routes and Router Link
+Now you can make a multi page app that can display and interact with components.
+
+can do dynamic data in components and display multi page app.
+
+routing in angular is choosing which component to display on the page that has a router outlet in it.
+
+We showed how to route if we went to the default route what about the rest of it ?
+
+How do you make links? 
+actual clickable links that i can click through on my page : 
+- routerLink
+
+@Component({
+    template: `
+        <a routerLink="/details">Details</a>
+        <router-outlet />
+    `
+    standalone: true,
+    imports: [RouterOutlet, RouterLink]
+})
+
+router link is a special attribute in angular called a directive.
+a directive adds behaviour to an HTML element for example, or to a component 
+
+but how do you create dynamic routes 
+
+e.g /details/1
+
+goo to app.routes
+
+import { Component } from '@angular/core';
+import { Routes } from '@angular/router';
+import { DetailsComponent } from './details/details.component';
+
+export const routes: Routes = [
+    {
+        path: 'details/:id',
+        compponent: DetailsComponent
+    }
+]
+
+:id is a placeholder so a dynamic value will be available there once someone navigates to this route and i can even get access to this placeholder or id.
+
+How??
+
+@Component({....})
+export class DetailsComponent{
+    productId = -1 //dest for route info
+
+    @Input()
+    set id(value:number){
+        this.productId = value;
+    }
+}
+
+angular can use input to receive data from a url 
+
+but to take advantage of this feature you have to use component input binding.
+
+import { ApplicationConfig } from '@angular/core';
+import { provideRouter } from '@angular/router';
+import { routes } from './app.routes';
+
+export const appConfig: ApplicationConfig = {
+        providers: [provideRouter(routes),
+                    withComponentInputBinding()]
+    }
+
+so now 08-routing-recap
 
 ## Dynamic Routing Exercise
+
+so now 08-routing-recap
+
 
 ## Forms Overview
 
