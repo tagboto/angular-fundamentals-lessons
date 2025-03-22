@@ -510,10 +510,72 @@ Inputs let us send information into a component and outputs are ways to send eve
 but both are about communication. So lets go to 06-inputs-and-outputs
 
 ## Interactivity with Outputs
+done 06-inputs-and-outputs
 
 ## Binding Outputs
+done 06-inputs-and-outputs
 
-## Navigation
+## Routing
+
+Angular has a built in complete router
+@angular/ router 
+it is so built in that we are adding view transitions to the router
+
+We also have fancy view transitions now !!
+
+Ok lets loook at example in our routes.ts file
+
+import { Component } from '@angular/core';
+import { Routes } from '@angular/router';
+import { DetailsComponent } from './details/details.component';
+
+export const routes: Routes = [
+    {
+        path: 'details',
+        compponent: DetailsComponent
+    }
+]
+
+exporting routes properties from this file. We have a path and a component.
+
+Those key value pairs of the route and component are the base of every route we have there are more route stuff like are you authorized to even access this (routeguard). 
+
+How do you use the router thooooo
+
+Well in the component template prorperty i need to put <router-outlet /> and you import the RouterModule
+
+see here:
+
+@Component({
+    selector: 'app-root',
+    standalone: true,
+    template: `
+        <router-outlet />
+    `
+    styles: '',
+    imports: [RouterModule]
+})
+
+export classs AppComponent
+
+so we route to components. So not necessarily pages but we can use <router-outlet /> for diff components on the same page e.g nav bar or footer.                   
+
+hmmm so now how we do in app.config.ts
+
+import { ApplicationConfig } from '@angular/core';
+import { provideRouter } from '@angular/router';
+import { routes } from './app.routes';
+
+export const appConfig: ApplicationConfig = {
+        providers: [provideRouter(routes)]
+    }
+
+what this is saying for an application level provide routing and use these routes with your router. the routes comes from your app.routes which is the key-val pair of path and component. 
+
+07-routing-basics
+
+
+
 
 ## Dynamic Routes and Router Link
 
