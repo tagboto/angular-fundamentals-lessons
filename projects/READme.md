@@ -774,6 +774,53 @@ export class AppComponent{
 
 
 ## Dependency Injection (DI)
+Special about angular is dependency injection and dependency injection is a design pattern it wasn't created by Angular
+
+Dependency Injection (DI) is a design pattern and mechanism for creating and delivering some parts of an app to other parts of an app that require them.
+
+create instances
+make them available
+
+To make something injectable we have to use our decorators once again which angular relies on.
+
+Because without our decorator this is just a regular typescript class. 
+
+import {Injectable} from '@angular/core';
+
+@Injectable({
+    providedIn: 'root', // this means its available at
+                        // the top or root of your app
+                        // available to entire app
+})
+
+export class CarService{...} 
+
+How do we make it available to our app tho ? Inject
+
+import {inject} from '@angular/core';
+@Component({...})
+export class AppComponent{
+    carService = inject(CarService);
+
+}
+
+You can also inject and then do your constructor too
+
+export class AppComponent{
+    carService = inject(CarService);
+    cars: string[]
+
+    constructor(){
+        this.carService.getCars();
+    }
+}
+
+11-depenendency-injection
+
+Can use NGONINIT and make it async
+
+safest place to make api calls
+
 
 ## Signals
 
