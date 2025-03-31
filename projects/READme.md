@@ -650,8 +650,71 @@ so now 08-routing-recap
 
 so now 08-routing-recap
 
-
 ## Forms Overview
+How do you gather user input 
+
+A tale of two systems for our forms
+
+1. Template driven forms
+    - src of truth is the template
+    - quick to setup and use 
+    - best for small one time use forms (login)
+    - more config for testing
+
+2. Reactive Forms 
+    - data model bind to your form
+    - define model, define validations
+        everything is programatic and then you go back to the representation in the template
+    - supports typing
+    - reusable: can share models
+    - more robust testing config
+
+
+Start with template driven forms
+
+<form name= "loginForm">
+    <label for="username"> Username: </label>
+    <input type="text" />
+
+    <label for="password"> Password: </label>
+    <input type="password" />
+
+    <button type= "submit"> Login </button>
+</form>
+
+Make your forms better by adding labels and controls 
+
+What are the labels for ? Accessibility 
+
+So that was just a normal form
+
+This is a template driven form to use it we use ngModel
+
+[()] - banana in a box
+     - represents two way dataflow
+     - property binding and event binding
+
+<form name= "loginForm">
+    <label for="username"> Username: </label>
+    <input type="text" [(ngModel)]="username"/>
+
+    <label for="password"> Password: </label>
+    <input type="password" [(ngModel)]="password" />
+
+    <button type= "submit"> Login </button>
+</form>
+
+Now in the component you need to import forms module. We call it template driven forms because just looking at the component apart from the import you'd have no idea it had anything to do with forms. You can see more accurately in template. Hence the name template driven forms!
+
+@Component({
+    imports: [FormsModule],
+    templateUrl: 'app.component.html',
+})
+export class AppComponent {
+    username = "";
+    password = "",
+}
+    
 
 ## Template Driven Forms
 
