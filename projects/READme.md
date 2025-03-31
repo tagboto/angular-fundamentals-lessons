@@ -715,10 +715,63 @@ export class AppComponent {
     password = "",
 }
     
-
 ## Template Driven Forms
+09-template-driven-forms
+
 
 ## Reactive Forms
+
+Before we anything with reactive forms we must define our model programatically
+
+@Component({
+    imports: [ReactiveFormsModule],
+    templateUrl: 'app.component.html',
+})
+
+export class AppComponent{
+    loginForm = new FormGroup({
+        name: new FormControl(''),
+        email: new FormControl(''),
+    });
+}
+
+login form - name of our model
+FormGroup - represents a group of form controls 
+
+Now here is our form
+
+First combine from to form group and tell it whats the data model 
+<form name= "loginForm" [formGroup] = "loginForm"
+    (ngSubmit)= "handleSubmit()">
+    <label for="username"> Username: </label>
+    <input type="text" formControlName="username" /> 
+
+    <label for="password"> Password: </label>
+    <input type="password" formControlName="password" />
+
+    <button type= "submit"> Login </button>
+</form>
+
+so lets update our component
+
+@Component({
+    imports: [ReactiveFormsModule],
+    templateUrl: 'app.component.html',
+})
+
+export class AppComponent{
+    loginForm = new FormGroup({
+        name: new FormControl(''),
+        email: new FormControl(''),
+    });
+
+    handleSubmit(){
+        this.loginWithCredentials(this.loginForm.value);
+    }
+}
+
+10-reactive-forms
+
 
 ## Dependency Injection (DI)
 
