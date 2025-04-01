@@ -823,5 +823,187 @@ safest place to make api calls
 
 
 ## Signals
+App Optimizations 
+
+Familiar with other ideas 
+
+Angular Signals
+
+Angular has an idea called change detection so in all the applications never did a single set state.
+
+It used to update using Zones. 
+
+But now we use signals 
+
+Three reactive primitives
+- signal
+- computed
+- effect
+
+Three functions 
+
+1. Signal 
+    - a value that can tell Angular when it changes
+    - capable of notifying its context of future changes in its value 
+    
+Here is how you do it. 
+
+@Component({
+    template: `<p> {{lastName()}}, {{firstName()}}</p>`
+
+})
+
+export class AppComponent{
+    firstName = signal('Jessica');
+    lastName = signal('Wesley');
+}
+
+You use the function rest at the reactive primitives.
+
+The single returns a smart function that can notify and subscibe to things.
+
+
+2. Computed 
+    - Derive new value when one of the dependent signals change
+    - computed lets you have an updated signal value based on other signal values much like value of shopping cart is dependent on other items in cart. 
+
+a less complex example is here adding to our other code and thats full name. If the first name changes full name changes. If the last name changes full name changes either way full name changes.
+
+@Component({
+    template: `<p> {{lastName()}}, {{firstName()}}</p>`
+
+})
+
+export class AppComponent{
+    firstName = signal('Jessica');
+    lastName = signal('Wesley');
+    fullName = computed(()=> `${firstName()} ${lastName()}`)
+}
+
+From a performance point of view this is great because we only update when something changes so we do memoization and caching. 
+
+3. Effect
+    - and effect is a side effectful operation which reads the value of zero or more signals.
+    - You can decide to do some behaviour if any of the signals change
+
+
+Here is a good example again building off our other examples.
+
+@Component({
+    template: `<p> {{ fullName() }}</p>`
+
+})
+
+export class AppComponent{
+    firstName = signal('Simona');
+    lastName = signal('Cotin');
+    fullName = computed(()=> `${firstName()} ${lastName()}`)
+    effect(()=>console.log('Updated: '+ lastName()))
+}
+
+So good for debugging. 
 
 ## Deferrable Views
+This is a way for us to do lazy loading but what is lazy loading
+
+Lazy loading helps keep initial bundle sizes smaller.
+
+meaning what gets shipped to the clients is smaller and that size matters because you may have clients that may be on a device that has low bandwidth.
+
+Normally you do lazy loading maybe don't ship this page etc and you do it in some config file of some kind. Well nowwwwww. We can say don't ship these parts of certain components until something meaningful happens.
+
+Now check this out. I want to load recommended movies template only if someone interacts with the trigger
+
+<button #trigger>Load Recommend Movies</button>
+
+@defer(on interaction(trigger)){
+    <recommended-movies />
+}@loading{
+    <p> Loading </p>
+}@error{
+    <p>Ooops, sorry</p>
+}@placeholder{
+    <img src="placeholder-image.png">
+}
+
+trigger is a template variable in angular 
+
+
+but what if I wanna do custom tins like i want to make my own triggers 
+
+<button (click)="count = count +1">
+Add one
+</button>
+
+@defer (when count > 5){
+    <recommended-movies />
+}
+@placeholder{
+    Count is {{ count }}
+}
+
+Ther are a whole bunch of robust powerful triggers
+
+- on idle 
+- on immediate
+- on timer(...)
+- on viewport(...)
+- on interaction(...)
+- on hover(...)
+
+Deferable views and prefetching
+- difference between lazy loading and prefetching and displaying 
+- lazy loading you just say ok when its time to load it load it and then display
+- or you can say start getting it but I'll not ready for you to show it yet
+
+e.g 
+
+@defer(on interaction(trigger);
+        prefetch on idle){
+            <recommended-movies />
+        }
+@defer(on interaction(trigger);
+        prefetch when count > 5){
+            <recommended-movies />
+        }
+
+13-deferrable-views
+
+## Wrapping Up
+
+CLI can do a lot of stuff.
+- Create apps
+- create resources like components, services and more
+- launch local dev servers
+- so much more ..
+
+What next 
+- angular.dev for documentation and tutorials
+- KLM uses angular app, Cisco
+- Stay connected
+- Angular CDK - unstyled.
+- Angular Material - styled 
+
+Pipes still supported. 
+
+input transform vs pipe
+- input transform - send data to a component 
+- specify function called a transform that says whatever format this comes in i want you to apply this function to it and give me a different output right out of there
+- reason use input transform vs pipe a pipe can also transform on data but you use pipes in templates the input isn't in the template 
+- inputs bound before get to template
+- solve similar problems, different use cases
+
+Pipe
+{{salary | currency}}
+
+Nest with Angular
+
+Future - server story 
+- reactivity 
+- incremental rendering 
+- space going in general 
+
+angular.dev
+component driven architecture
+
+Yayyy 3 hours in like 6 weeks 
